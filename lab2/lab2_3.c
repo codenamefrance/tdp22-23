@@ -41,14 +41,9 @@ int main(){
 	while(!feof(fpin)){
 		counter=0;
 
-		while(current_char==next_char){
-			if(counter<9){
-				counter+=1;
-				fscanf(fpin, "%c", &next_char);
-			}		
-			else{
-				break;
-			}
+		while(current_char==next_char && counter<9){
+			counter+=1;
+			fscanf(fpin, "%c", &next_char);
 		}
 		if(counter>=2){
 			fprintf(fpout, "%c$%d", current_char, counter);
