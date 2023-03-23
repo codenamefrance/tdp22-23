@@ -1,21 +1,3 @@
-/* Un file (sorgente.txt) contiene un testo composto da un numero indefinito di righe.
-Notare che il testo NON contiene il carattere ‘$’.
-
-Lo scopo del programma è di ricodificare il testo sostituendo 
-sequenze di caratteri ripetuti da 2 a 9
-volte (ATTENZIONE: il numero non comprende il primo carattere, cioè AA contiene una ripetizione,
-BBB due ripetizioni, ecc.) con la terna di caratteri 
-
-<carattere ripetuto>$<numero di ripetizioni>
-
-(ATTENZIONE: per il <numero di ripetizioni> è sufficiente un carattere). Se un carattere fosse
-ripetuto più di 9 volte, le ripetizioni sarebbero spezzate in più intervalli.
-Ad esempio, la sequenza di caratteri “il numero 1000000 e’ grande”, viene compressa in “il numero
-10$5 è grande”. La sequenza, “ci sono 15 = ripetuti: =============== e 4 punti....” viene
-ricodificata in: “ci sono 15 = ripetuti: =$9=$4 e 4 punti.$3” 
-*/
-
-
 #include <stdio.h>
 
 int main(){
