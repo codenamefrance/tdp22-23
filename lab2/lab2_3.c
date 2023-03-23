@@ -25,14 +25,17 @@ int main(){
 	int counter;
 
 	fpin = fopen("sorgente.txt", "r");
-	fpout = fopen("codifica.txt", "w");
+
 	if(fpin==NULL){
 		printf("Errore nella lettura del file. \n");
 		return 1;
 	}
+
+	fpout = fopen("codifica.txt", "w");
+	
 	if(fpout==NULL){
 		printf("Errore nella lettura del file. \n");
-		return 2;
+		return 1;
 	}
 	
 	fscanf(fpin, "%c", &current_char);
