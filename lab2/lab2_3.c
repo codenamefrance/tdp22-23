@@ -2,7 +2,7 @@
 
 int main(){
 
-	FILE *fpin, *fpout;
+	FILE *fpin, *fpout, *fpdec;
 	char current_char, next_char;
 	int counter;
 
@@ -20,6 +20,9 @@ int main(){
 		return 1;
 	}
 	
+
+// FUNZIONE DI CODIFICA
+
 	fscanf(fpin, "%c", &current_char);
 	fscanf(fpin, "%c", &next_char);
 
@@ -44,8 +47,49 @@ int main(){
 		current_char=next_char;
 		fscanf(fpin, "%c", &next_char);
 	}
+	fprintf(fpout,"\n");
 
 	fclose(fpout);
 	fclose(fpin);
 
+
+// FUNZIONE DI DECODIFICA
+
+	fpout = fopen("codifica.txt", "r");
+	
+	if(fpout==NULL){
+		printf("Errore nella lettura del file. \n");
+		return 1;
+	}
+
+	fpdec = fopen("decoded.txt", "w");
+	
+	if(fpdec==NULL){
+		printf("Errore nella lettura del file. \n");
+		return 1;
+	}
+
+	fscanf(fpout, "%c", &current_char);
+	fscanf(fpout, "%c", &next_char);
+
+	while(!feof(fpout)){
+		if(next_char=='$'){
+			fprintf(fpout,"%c",current_char);
+
+			fscanf(fpout, "%d", &counter);
+			for(counter;counter>=0;counter-=1){
+				fprintf(fpdec,"%c",current_char);
+			}
+		}
+		else{
+			fprintf(fpdec, "%c%c", current_char, next_char);
+		}
+		
+		fscanf(fpin, "%c", &current_char);
+		fscanf(fpin, "%c", &next_char);
+
+	fclose(fpdec);
+	fclose(fpout);
+	
+	}
 }
