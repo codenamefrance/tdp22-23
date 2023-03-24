@@ -1,95 +1,107 @@
 #include <stdio.h>
 
+int comprimi(FILE *fin, FILE *fout);
+int decomprimi(FILE *fin, FILE *fout);
+
 int main(){
+    FILE *fin, *fout;
+    char sel;
 
-	FILE *fpin, *fpout, *fpdec;
-	char current_char, next_char;
-	int counter;
-
-	fpin = fopen("sorgente.txt", "r");
-
-	if(fpin==NULL){
-		printf("Errore nella lettura del file. \n");
-		return 1;
-	}
-
-	fpout = fopen("codifica.txt", "w");
-	
-	if(fpout==NULL){
-		printf("Errore nella lettura del file. \n");
-		return 1;
-	}
-	
-
-// FUNZIONE DI CODIFICA
-
-	fscanf(fpin, "%c", &current_char);
-	fscanf(fpin, "%c", &next_char);
-
-	while(!feof(fpin)){
-		counter=0;
-
-		while(current_char==next_char && counter<9){
-			counter+=1;
-			fscanf(fpin, "%c", &next_char);
-		}
-		if(counter>=2){
-			fprintf(fpout, "%c$%d", current_char, counter);
-		}
-		else{
-			if(counter==1){
-				fprintf(fpout, "%c%c", current_char, current_char);
-			}
-			else{
-				fprintf(fpout, "%c", current_char);
-			}
-		}
-		current_char=next_char;
-		fscanf(fpin, "%c", &next_char);
-	}
-	fprintf(fpout,"\n");
-
-	fclose(fpout);
-	fclose(fpin);
+    printf("Select what to do: (C/D)  \n");
+    scanf("%c", &sel);
+    switch(sel){
+        case 'C':
+            fin=fopen("sorgente.txt", "r");
+            fout=fopen("compresso.txt", "w");
+            printf("%d", comprimi(fin, fout));
+            break;
+        case 'D':
+            fin=fopen("compresso.txt", "r");
+            fout=fopen("decompresso.txt", "w");
+            printf("%d", decomprimi(fin, fout));
+            break;
+        default:
+            printf("Scelta invalida."); return 1;
+    }
 
 
-// FUNZIONE DI DECODIFICA
+}
 
-	fpout = fopen("codifica.txt", "r");
-	
-	if(fpout==NULL){
-		printf("Errore nella lettura del file. \n");
-		return 1;
-	}
 
-	fpdec = fopen("decoded.txt", "w");
-	
-	if(fpdec==NULL){
-		printf("Errore nella lettura del file. \n");
-		return 1;
-	}
+int comprimi(FILE *fin, FILE *fout){
 
-	fscanf(fpout, "%c", &current_char);
-	fscanf(fpout, "%c", &next_char);
+    char current_char, next_char;
+    int counter, caratteri=0;
 
-	while(!feof(fpout)){
-		if(next_char=='$'){
-			fprintf(fpout,"%c",current_char);
+    if(fin==NULL || fout==NULL) return 0;
 
-			fscanf(fpout, "%d", &counter);
-			for(counter;counter>=0;counter-=1){
-				fprintf(fpdec,"%c",current_char);
-			}
-		}
-		else{
-			fprintf(fpdec, "%c%c", current_char, next_char);
-		}
+    fscanf(fin, "%c", &current_char);
+    fscanf(fin, "%c", &next_char);
+
+    while(!feof(fin)){
+        counter=0;
+
+        while(current_char==next_char && counter<9){
+            counter+=1;
+            fscanf(fin, "%c", &next_char);
+        }
+        if(counter>=2){
+            fprintf(fout, "%c$%d", current_char, counter);
+            caratteri+=3;
+        }
+        else{
+            if(counter==1){
+                fprintf(fout, "%c%c", current_char, current_char);
+                caratteri+=2;
+            }
+            else{
+                fprintf(fout, "%c", current_char);
+                caratteri+=1;
+            }
+        }
+        current_char=next_char;
+        fscanf(fin, "%c", &next_char);
+    }
+
+    fclose(fout);
+    fclose(fin);
+
+    return caratteri;
+}
+int decomprimi(FILE *fin, FILE *fout){
+    int counter, caratteri=0;
+    char current_char, next_char;
+
+    if(fin==NULL || fout==NULL) return 0;
+
+    fscanf(fin, "%c", &current_char);
+    fscanf(fin, "%c", &next_char);
+    while(!feof(fin)){
+        if(next_char=='$'){
+            fprintf(fout, "%c", current_char);
+            caratteri+=1;
+            fscanf(fin, "%c", &next_char);
+            counter = (int)(next_char)-48;
 		
-		fscanf(fpin, "%c", &current_char);
-		fscanf(fpin, "%c", &next_char);
+            while(counter>0){
+                fprintf(fout, "%c", current_char);
+                caratteri+=1;
+                counter = counter-1;
+            }
 
-	fclose(fpdec);
-	fclose(fpout);
-	
-	}
+            fscanf(fin, "%c", &current_char);
+            fscanf(fin, "%c", &next_char);
+        }
+        else{
+            fprintf(fout, "%c", current_char);
+            caratteri+=1;
+            current_char=next_char;
+            fscanf(fin, "%c", &next_char);
+        }
+
+    }
+    fclose(fin);
+    fclose(fout);
+
+    return caratteri;
 }
