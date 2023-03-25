@@ -13,12 +13,12 @@ int main(){
         case 'C':
             fin=fopen("sorgente.txt", "r");
             fout=fopen("compresso.txt", "w");
-            printf("%d", comprimi(fin, fout));
+            printf("Operazione completata. Sono stampati %d caratteri. \n", comprimi(fin, fout));
             break;
         case 'D':
             fin=fopen("compresso.txt", "r");
             fout=fopen("decompresso.txt", "w");
-            printf("%d", decomprimi(fin, fout));
+            printf("Operazione completata. Sono stampati %d caratteri. \n", decomprimi(fin, fout));
             break;
         default:
             printf("Scelta invalida."); return 1;
