@@ -32,7 +32,6 @@ void verifyFromFile(FILE *fin){
 		max=num2;
 	}
 
-
 	while(!feof(fin)){
 		if(verificaTerna(num1, num2, num3)){
 			max = num3>max?num3:max;
