@@ -28,6 +28,4 @@ int main(){
 	}
 
 	printf("%c %.2f", operator, result);
-	return 1;
-
 }
