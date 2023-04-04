@@ -1,9 +1,3 @@
-/*  Scrivere un programma C che, acquisiti 2 numeri interi positivi ne calcoli il massimo comune divisore
-utilizzando la formula di Eulero.
-Formula di Eulero o metodo dei resti: si procede per divisioni successive del numero maggiore per
-quello minore, sostituendo ad ogni passo il valore maggiore con il minore ed il minore
-col resto della divisione. Il processo termina quando il resto è 0   */
-
 #include <stdio.h>
 
 int main(){
