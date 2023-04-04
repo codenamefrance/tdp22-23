@@ -6,7 +6,9 @@ int main(){
 	float num1, num2, result;
 
 	fin=fopen("operations.txt", "r");
-	fout=fopen("risultati.txt", "w");
+	if(fin==NULL) return 0;
+	fout=fopen("results.txt", "w");
+	if(fout==NULL) return 0;
 
 	while(!feof(fin)){
 		operator = fgetc(fin);
