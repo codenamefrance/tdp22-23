@@ -23,8 +23,6 @@ int main(){
         default:
             printf("Scelta invalida."); return 1;
     }
-
-
 }
 
 
