@@ -52,7 +52,7 @@ void sottoSequenze(int V[], int N){
 
             /* Per risparmiare tempo, decido fin da subito di salvare mano a mano i massimi relativi, invece
             di salvarli tutti */
-            if (curlen == maxlen) {
+            if (curlen >= maxlen) {
                 subV[subN] = curlen;
                 subV[subN + 1] = i;
                 subN += 2;
