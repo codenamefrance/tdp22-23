@@ -7,7 +7,7 @@
 
 
 struct data{
-    int indici[2+1];
+    int indici[2];
     int height;
     int lenght;
     int surface;
@@ -17,9 +17,7 @@ enum colours {white, black};
 
 
 void readFile(); //Mi riempie la mappa
-int findRegions(int matrix[MAX_NR][MAX_NC], struct data database[MAX]); /*Mi cerca le regioni e me le salva su array
-                                            che deve essere ordinato fin dall'inizio. Porta a zero gli altri
-                                            elementi del rettangolo */
+int findRegions(int matrix[MAX_NR][MAX_NC], struct data database[MAX]); /*Mi cerca le regioni e me le salva su array */
 int getMax(struct data database[MAX], int occurrences); //In base al parametro che gli dò, cerca il max e mi ritorna l'indice da rectangles
 
 
